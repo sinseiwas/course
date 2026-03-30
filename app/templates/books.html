@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Каталог{% endblock %}
+{% block content %}
+<section class="page-head">
+    <div>
+        <h1>Каталог книг</h1>
+        <p class="muted">Поиск по названию, автору, категории и году.</p>
+    </div>
+    {% if current_user.role == 'admin' %}
+    <a class="button" href="/books/new">Добавить книгу</a>
+    {% endif %}
+</section>
+
+<section class="card">
+    <form method="get" action="/books/search" class="filter-grid">
+        <input type="text" name="title" value="{{ filters.title }}" placeholder="Название">
+        <input type="text" name="author" value="{{ filters.author }}" placeholder="Автор">
+        <input type="text" name="category" value="{{ filters.category }}" placeholder="Категория">
+        <input type="number" name="year" value="{{ filters.year }}" placeholder="Год">
+        <button class="button" type="submit">Искать</button>
+        <a class="button secondary" href="/books">Сбросить</a>
+    </form>
+</section>
+
+<section class="grid-list">
+    {% for book in books %}
+    <article class="card book-card">
+        <div class="book-meta">{{ book.category }} • {{ book.year }}</div>
+        <h2><a href="/books/{{ book.id }}">{{ book.title }}</a></h2>
+        <p><strong>{{ book.author }}</strong></p>
+        <p class="muted">Доступно {{ book.available_copies }} из {{ book.total_copies }}</p>
+        <div class="actions">
+            <a class="button secondary" href="/books/{{ book.id }}">Открыть</a>
+            {% if book.available_copies > 0 %}
+            <form method="post" action="/orders">
+                <input type="hidden" name="book_id" value="{{ book.id }}">
+                <button class="button" type="submit">Заказать</button>
+            </form>
+            {% endif %}
+        </div>
+    </article>
+    {% else %}
+    <div class="card">Книги по указанным критериям не найдены.</div>
+    {% endfor %}
+</section>
+{% endblock %}

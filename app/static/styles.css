@@ -1,0 +1,256 @@
+:root {
+    --bg: #f4efe6;
+    --surface: #fffdf9;
+    --surface-strong: #fff7ea;
+    --text: #2f241a;
+    --muted: #746454;
+    --primary: #0f766e;
+    --primary-dark: #0b5a54;
+    --danger: #b42318;
+    --border: #dccfbf;
+    --shadow: 0 16px 40px rgba(67, 47, 24, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Georgia", "Times New Roman", serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.12), transparent 30%),
+        linear-gradient(180deg, #f7f2ea 0%, var(--bg) 100%);
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(12px);
+    background: rgba(244, 239, 230, 0.92);
+    border-bottom: 1px solid rgba(220, 207, 191, 0.9);
+    z-index: 10;
+}
+
+.header-inner, .page-head, .actions, .header-user, .nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-inner, .page-head {
+    justify-content: space-between;
+}
+
+.header-inner {
+    min-height: 72px;
+}
+
+.nav {
+    flex-wrap: wrap;
+}
+
+.brand {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+main.container {
+    padding: 28px 0 48px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.narrow {
+    max-width: 480px;
+    margin: 60px auto 0;
+}
+
+.form-grid, .filter-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.filter-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    align-items: end;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+input, textarea, select, button {
+    font: inherit;
+}
+
+input, textarea, select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 14px;
+    background: white;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    padding: 11px 18px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--primary-dark);
+}
+
+.button.secondary {
+    background: var(--surface-strong);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.button.danger {
+    background: var(--danger);
+}
+
+.button.small {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.book-card h2 {
+    margin-bottom: 8px;
+}
+
+.book-meta, .muted {
+    color: var(--muted);
+}
+
+.flash {
+    padding: 14px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+}
+
+.flash-success {
+    background: rgba(15, 118, 110, 0.12);
+    border: 1px solid rgba(15, 118, 110, 0.22);
+}
+
+.flash-error {
+    background: rgba(180, 35, 24, 0.08);
+    border: 1px solid rgba(180, 35, 24, 0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+}
+
+.badge-danger {
+    background: rgba(180, 35, 24, 0.12);
+    color: var(--danger);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.stat {
+    display: grid;
+    gap: 8px;
+}
+
+.stat strong {
+    font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    .header-inner, .page-head, .header-user {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-grid, .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    table, thead, tbody, tr, td, th {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        border-bottom: 1px solid var(--border);
+        padding: 8px 0;
+    }
+
+    td {
+        border: 0;
+        padding: 8px 0;
+    }
+}

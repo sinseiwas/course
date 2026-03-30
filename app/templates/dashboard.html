@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Статистика{% endblock %}
+{% block content %}
+<section class="page-head">
+    <div>
+        <h1>Панель администратора</h1>
+        <p class="muted">Ключевые показатели библиотеки.</p>
+    </div>
+</section>
+<section class="stats-grid">
+    <div class="card stat"><strong>{{ stats.users_count }}</strong><span>Пользователей</span></div>
+    <div class="card stat"><strong>{{ stats.books_count }}</strong><span>Книг</span></div>
+    <div class="card stat"><strong>{{ stats.active_orders_count }}</strong><span>Активных заказов</span></div>
+    <div class="card stat"><strong>{{ stats.active_borrowings_count }}</strong><span>Активных выдач</span></div>
+    <div class="card stat"><strong>{{ stats.overdue_borrowings_count }}</strong><span>Просроченных выдач</span></div>
+</section>
+<section class="card">
+    <h2>Популярные книги</h2>
+    <table>
+        <thead>
+            <tr><th>Название</th><th>Количество выдач</th></tr>
+        </thead>
+        <tbody>
+            {% for title, borrow_count in stats.popular_books %}
+            <tr><td>{{ title }}</td><td>{{ borrow_count }}</td></tr>
+            {% else %}
+            <tr><td colspan="2">Пока нет данных.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

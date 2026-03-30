@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }}{% endblock %}
+{% block content %}
+<section class="card">
+    <div class="page-head">
+        <div>
+            <div class="book-meta">{{ book.category }} • {{ book.year }}</div>
+            <h1>{{ book.title }}</h1>
+            <p><strong>{{ book.author }}</strong></p>
+        </div>
+        <div class="actions">
+            {% if current_user.role == 'admin' %}
+            <a class="button secondary" href="/books/{{ book.id }}/edit">Редактировать</a>
+            <form method="post" action="/books/{{ book.id }}/delete" onsubmit="return confirm('Удалить книгу?');">
+                <button class="button danger" type="submit">Удалить</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <p>{{ book.description }}</p>
+    <p class="muted">Доступно {{ book.available_copies }} из {{ book.total_copies }}</p>
+    {% if book.available_copies > 0 %}
+    <form method="post" action="/orders">
+        <input type="hidden" name="book_id" value="{{ book.id }}">
+        <button class="button" type="submit">Оформить заказ</button>
+    </form>
+    {% endif %}
+</section>
+{% endblock %}

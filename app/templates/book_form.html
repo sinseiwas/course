@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Форма книги{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>{{ submit_label }}</h1>
+    <form method="post" action="{{ action }}" class="form-grid">
+        <label>Название<input type="text" name="title" value="{{ book.title if book else '' }}" required></label>
+        <label>Автор<input type="text" name="author" value="{{ book.author if book else '' }}" required></label>
+        <label>Год<input type="number" name="year" value="{{ book.year if book else '' }}" required></label>
+        <label>Категория<input type="text" name="category" value="{{ book.category if book else '' }}" required></label>
+        <label>Всего экземпляров<input type="number" min="1" name="total_copies" value="{{ book.total_copies if book else 1 }}" required></label>
+        <label>Доступно экземпляров<input type="number" min="0" name="available_copies" value="{{ book.available_copies if book else 1 }}" required></label>
+        <label class="full">Описание<textarea name="description" rows="6">{{ book.description if book else '' }}</textarea></label>
+        <div class="actions">
+            <button class="button" type="submit">{{ submit_label }}</button>
+            <a class="button secondary" href="/books">Назад</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

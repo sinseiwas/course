@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Пользователи{% endblock %}
+{% block content %}
+<section class="page-head">
+    <div>
+        <h1>Пользователи</h1>
+        <p class="muted">Библиотекарь может просматривать, администратор управляет записями.</p>
+    </div>
+    {% if current_user.role == 'admin' %}
+    <a class="button" href="/users/new">Добавить пользователя</a>
+    {% endif %}
+</section>
+<section class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Email</th>
+                <th>Роль</th>
+                <th>Создан</th>
+                {% if current_user.role == 'admin' %}<th>Действия</th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.full_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                {% if current_user.role == 'admin' %}
+                <td class="actions">
+                    <a class="button secondary small" href="/users/{{ user.id }}/edit">Редактировать</a>
+                    {% if current_user.id != user.id %}
+                    <form method="post" action="/users/{{ user.id }}/delete" onsubmit="return confirm('Удалить пользователя?');">
+                        <button class="button danger small" type="submit">Удалить</button>
+                    </form>
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr><td colspan="6">Пользователи не найдены.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

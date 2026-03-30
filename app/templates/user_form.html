@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Форма пользователя{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>{{ submit_label }}</h1>
+    <form method="post" action="{{ action }}" class="form-grid">
+        <label>ФИО<input type="text" name="full_name" value="{{ user.full_name if user else '' }}" required></label>
+        <label>Email<input type="email" name="email" value="{{ user.email if user else '' }}" required></label>
+        <label>Пароль<input type="password" name="password" {% if not user %}required{% endif %}></label>
+        <label>
+            Роль
+            <select name="role" required>
+                {% for role in ['reader', 'librarian', 'admin'] %}
+                <option value="{{ role }}" {% if user and user.role == role %}selected{% endif %}>{{ role }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <div class="actions">
+            <button class="button" type="submit">{{ submit_label }}</button>
+            <a class="button secondary" href="/users">Назад</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
